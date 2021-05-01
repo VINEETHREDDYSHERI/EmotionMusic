@@ -40,4 +40,4 @@ typing-extensions==3.7.4.3
 urllib3==1.26.4
 wheel==0.36.2
 wrapt==1.12.1
-
+opencv-python-headless==4.2.0.32
