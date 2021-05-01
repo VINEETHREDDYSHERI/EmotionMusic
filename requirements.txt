@@ -46,3 +46,5 @@ typing-extensions==3.7.4.3
 urllib3==1.26.4
 wheel==0.36.2
 wrapt==1.12.1
+h5py==2.10.0
+
