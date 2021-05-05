@@ -28,6 +28,7 @@ def getEmotion():
         img = request.files["fileUpload"]
         img.save('static/file.jpg')
         label_map = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
+        emotionCount = [0, 0, 0, 0, 0, 0, 0]
         global emotion
         global fileName
         MTCNNDetector = MTCNN()
@@ -45,6 +46,7 @@ def getEmotion():
             roi = np.expand_dims(roi, axis=0)
             predictionProb = model.predict(roi)
             prediction = np.argmax(predictionProb)
+            emotionCount[prediction] += 1
             final_prediction = label_map[prediction]
             print(prediction)
             print(final_prediction)
@@ -52,6 +54,8 @@ def getEmotion():
             label_position = (x, y)
             cv2.putText(image, final_prediction, label_position, cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
 
+        emotion = label_map[np.argmax(emotionCount)]
+        print(emotionCount)
         fileName = "images/outputFile_" + str(time.time()) + ".jpg"
         cv2.imwrite("static/"+fileName, image)
         return redirect("/result")
